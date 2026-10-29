@@ -7,10 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// This DAO reads from the "transactions" table.
+
 public class TransactionDAO {
 
-    // READ: print the transaction history of one account, newest first
+
     public void viewTransactionHistory(int accountId) {
         String sql = "SELECT reference_id, transaction_type, amount, created_at "
                 + "FROM transactions WHERE account_id = ? "
@@ -25,7 +25,7 @@ public class TransactionDAO {
                 System.out.println("--- Transaction history for account " + accountId + " ---");
 
                 boolean foundAny = false;
-                while (rs.next()) {   // loop once for every row in the result
+                while (rs.next()) {
                     foundAny = true;
                     System.out.println(rs.getString("reference_id")
                             + " | " + rs.getString("transaction_type")

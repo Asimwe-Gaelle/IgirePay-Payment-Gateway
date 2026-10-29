@@ -152,7 +152,6 @@ public class  IgireApp {
 
 
     private static void exportTransactions() throws Exception {
-
         System.out.print("Enter file name (example: transactions.csv): ");
         String fileName = scanner.next();
 

@@ -4,11 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-// This class has ONE job: give us a connection to the PostgreSQL database.
-// Every DAO class calls DatabaseConnection.getConnection() when it needs the database.
+
 public class DatabaseConnection {
 
-    // Change these 3 lines to match YOUR PostgreSQL setup
+
     private static final String URL = "jdbc:postgresql://localhost:5432/igirepay_db";
     private static final String USER = "postgres";
     private static final String PASSWORD = "abcd";

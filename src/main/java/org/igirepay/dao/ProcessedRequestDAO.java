@@ -7,12 +7,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// This DAO talks to the "processed_requests" table.
-// It remembers every reference ID we have handled, so a retried request
-// (same reference ID) can be recognised and rejected.
+
 public class ProcessedRequestDAO {
 
-    // READ: has this reference ID been processed before?  true = yes, false = no
+
     public boolean isProcessed(String referenceId) {
         String sql = "SELECT 1 FROM processed_requests WHERE reference_id = ?";
 
@@ -21,7 +19,7 @@ public class ProcessedRequestDAO {
 
             stmt.setString(1, referenceId);
             try (ResultSet rs = stmt.executeQuery()) {
-                return rs.next();   // a row was found = already processed
+                return rs.next();
             }
 
         } catch (SQLException e) {
@@ -30,24 +28,17 @@ public class ProcessedRequestDAO {
         }
     }
 
-    // CREATE (used inside a bigger database transaction).
-    // It uses the Connection that AccountDAO gives us, so this insert is saved
-    // or undone TOGETHER with the balance changes.
-    //
-    // "ON CONFLICT DO NOTHING" means: if the reference already exists, don't crash,
-    // just insert nothing.
-    // Returns true if the reference was NEW, false if it was a DUPLICATE.
     public boolean markAsProcessed(Connection conn, String referenceId) throws SQLException {
         String sql = "INSERT INTO processed_requests (reference_id) VALUES (?) "
                 + "ON CONFLICT (reference_id) DO NOTHING";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, referenceId);
-            return stmt.executeUpdate() == 1;   // 1 row inserted = new, 0 rows = duplicate
+            return stmt.executeUpdate() == 1;   //
         }
     }
 
-    // CREATE (on its own): same as above, but opens its own connection.
+
     public boolean markAsProcessed(String referenceId) {
         try (Connection conn = DatabaseConnection.getConnection()) {
             return markAsProcessed(conn, referenceId);
@@ -57,7 +48,7 @@ public class ProcessedRequestDAO {
         }
     }
 
-    // READ: print every processed reference ID
+
     public void viewAll() {
         String sql = "SELECT reference_id, processed_at FROM processed_requests ORDER BY id";
 

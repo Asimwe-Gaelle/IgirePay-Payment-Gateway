@@ -16,7 +16,6 @@ import java.time.LocalDate;
 
 public class TransactionReportDAO {
 
-    // FEATURE 1: Export all transactions to a CSV file.
     public void exportToCSV(String fileName)
             throws SQLException, IOException {
 
@@ -36,7 +35,7 @@ public class TransactionReportDAO {
             );
             writer.newLine();
 
-            // Read transactions one by one.
+
             while (result.next()) {
 
                 writer.write(
@@ -55,7 +54,7 @@ public class TransactionReportDAO {
         System.out.println("CSV file created: " + fileName);
     }
 
-    // FEATURE 2: Display the summary for one day.
+
     public void showDailySummary(Date selectedDate)
             throws SQLException {
 
@@ -104,7 +103,7 @@ public class TransactionReportDAO {
         }
     }
 
-    // FEATURE 3: Display transactions belonging to a customer.
+
     public void showCustomerStatement(int customerId)
             throws SQLException {
 
@@ -119,7 +118,7 @@ public class TransactionReportDAO {
              PreparedStatement statement =
                      connection.prepareStatement(sql)) {
 
-            // Find transactions for this customer.
+
             statement.setInt(1, customerId);
 
             try (ResultSet result = statement.executeQuery()) {

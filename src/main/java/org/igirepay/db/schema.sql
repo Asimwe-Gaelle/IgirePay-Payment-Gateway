@@ -1,7 +1,5 @@
 -- IgirePay database schema (PostgreSQL)
 
--- Drop the tables first so you can run this file again without errors.
--- The order matters: tables that point to others are dropped first.
 DROP TABLE IF EXISTS transactions;
 DROP TABLE IF EXISTS processed_requests;
 DROP TABLE IF EXISTS accounts;
